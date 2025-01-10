@@ -8,6 +8,6 @@ export const Container = styled.div`
   align-items: center;
   grid-area: header;
 
-  background-color: ${({theme}) => theme.COLORS.DARK900};
+  background-color: ${({theme}) => theme.COLORS.DARK600};
 
 `;

@@ -8,13 +8,13 @@ export default createGlobalStyle`
   }
 
   body {
-    background-color: ${({theme}) => theme.COLORS.DARK600};
+    background-color: ${({theme}) => theme.COLORS.DARK400};
     color: ${({ theme }) => theme.COLORS.LIGHT100};
 
     -webkit-font-smoothing: antialiased;
   }
 
-  body, input, p {
+  body, input, input:placeholder, p {
     font-family: 'Roboto Slab', serif;
   }
 
