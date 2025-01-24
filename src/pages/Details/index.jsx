@@ -3,6 +3,7 @@ import { Main } from "./styles";
 import { Button } from "../../components/Button";
 import { Tag } from "../../components/Tag";
 import { Input } from "../../components/Input";
+import { Footer } from "../../components/Footer";
 
 export function Details() {
   return (
@@ -13,6 +14,7 @@ export function Details() {
       <Tag title="tag"/>
       <Input type="text"
         placeholder="teste"/>
+      <Footer/>
     </Main>
   )
 }

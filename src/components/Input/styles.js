@@ -22,7 +22,7 @@ export const Container = styled.div`
   }
 
   > input:focus {
-    border: 1px solid ${({theme}) => theme.COLORS.LIGHT100};
+    /* border: 1px solid ${({theme}) => theme.COLORS.LIGHT100}; */
     border-radius: 5px;
     outline: none;
   }

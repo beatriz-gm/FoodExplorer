@@ -9,12 +9,11 @@ export default createGlobalStyle`
 
   body {
     background-color: ${({theme}) => theme.COLORS.DARK400};
-    color: ${({ theme }) => theme.COLORS.LIGHT100};
 
     -webkit-font-smoothing: antialiased;
   }
 
-  body, input, input:placeholder, p {
+  body, input, input:placeholder {
     font-family: 'Roboto Slab', serif;
   }
 
