@@ -16,10 +16,10 @@ export const Banner = styled.div`
   margin: 164px 124px;
 
   img {
-    width: 656px;
-    height: 412px;
+    width: 645px;
+    height: 400px;
     margin-left: -70px;
-    margin-top: -138px;
+    margin-top: -140px;
   }
 
   > div{
