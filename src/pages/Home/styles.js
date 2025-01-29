@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    
 
-
+  > body {
+      padding: 104px 123px 0;
+    }
     
 `;
 
@@ -13,7 +14,7 @@ export const Banner = styled.div`
   gap: 12px;
   background-color: ${({theme})=> theme.COLORS.GRADIENT};
   border-radius: 8px;
-  margin: 164px 124px;
+  margin: 164px 0 62px;
 
   img {
     width: 645px;
