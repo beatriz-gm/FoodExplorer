@@ -8,13 +8,14 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 15px;
 
-  padding: 24px;
+  padding: 0 24px;
   border-radius: 8px;
   background-color: ${({theme}) => theme.COLORS.DARK200};
 
   > svg {
     color: ${({theme}) => theme.COLORS.LIGHT300};
-    position: absolute;
+    margin-top: 16px;
+    margin-left: 222px;
   }
 
   > img {
@@ -23,6 +24,7 @@ export const Container = styled.div`
     border-radius: 50%;
     object-fit: cover;
     align-self: center;
+    margin-top: -25px;
   }
 
   > h2 {
