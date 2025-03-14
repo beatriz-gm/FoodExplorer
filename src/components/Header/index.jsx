@@ -1,12 +1,23 @@
-import { Container } from "./styles";
+import { Container, Logout } from "./styles";
 import { BsFillHexagonFill } from "react-icons/bs";
 import { FiSearch } from 'react-icons/fi';
 import { GoSignOut } from "react-icons/go";
 import { PiReceipt } from "react-icons/pi";
 import { Input } from "../input";
 import { Button } from "../Button";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from '../../hooks/auth';
+import { useState, useEffect } from "react";
 
-export function Header() {
+export function Header({setSearch}) {
+  const { signOut } = useAuth();
+  const navigate = useNavigate();
+
+  function handleSignOut() {
+    navigate("/");
+    signOut();
+  }
+
   return(
     <Container>
       <div id="logo">
@@ -18,11 +29,12 @@ export function Header() {
         placeholder="Busque por pratos ou ingredientes"
         icon={FiSearch}
         margin-left={100}
+        onChange={(e) => setSearch(e.target.value)}
       />
       <Button title="Pedidos (0)" icon={PiReceipt} />
-      <div id="logout">
-        <GoSignOut  size={32}/>
-      </div>
+      <Logout onClick={handleSignOut} >
+        <GoSignOut/>
+      </Logout>
     </Container>
   )
 }

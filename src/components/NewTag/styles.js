@@ -18,6 +18,10 @@ export const Container = styled.div`
     border: none;
     background: none;
     color: ${({theme}) => theme.COLORS.LIGHT100};
+
+    > svg {
+      margin-top: 5px;
+    }
   }
 
   > input {

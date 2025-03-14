@@ -56,17 +56,14 @@ export const Container = styled.div`
       margin-left: 0px;
     }
   }
+  `;
 
-  > #logout {
-    margin: none;
-    background: none;
-    padding: 0;
-
-    > svg {
-      color: ${({theme}) => theme.COLORS.LIGHT100};
-      margin-left: 0px;
-    }
-  }
+export const Logout = styled.button`
+  border: none;
+  background: none;
   
-
+  > svg {
+    color: ${({theme}) => theme.COLORS.LIGHT100};
+    font-size: 32px;
+  }
 `;
