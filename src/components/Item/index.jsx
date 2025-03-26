@@ -2,15 +2,22 @@ import { Container, Add } from "./styles";
 import { FiHeart, FiPlus, FiMinus  } from "react-icons/fi";
 import Macaron from "../../assets/macaron.png";
 import { Button } from "../Button";
+import { useNavigate } from "react-router-dom";
 
-export function Item( { data, ...rest }) {
+export function Item( { id, title, description, price }) {
+  const navigate = useNavigate();
+
+  function handleDetails(id) {
+    navigate(`/details/${id}`);
+  }
+
   return(
-    <Container {...rest}>
+    <Container onClick={() => handleDetails(id)}>
       <FiHeart size={24}/>
       <img src={Macaron} alt="macarons" />
-      <h2>kkkk{data}</h2>
-      <p>{data}</p>
-      <h3>{data}</h3>
+      <h2>{title}</h2>
+      <p>{description}</p>
+      <h3>{price}</h3>
       <div className="add">
         <Add>
           <FiMinus size={24}/>

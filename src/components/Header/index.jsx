@@ -7,10 +7,12 @@ import { Input } from "../input";
 import { Button } from "../Button";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from '../../hooks/auth';
-import { useState, useEffect } from "react";
+import { DataContext } from '../context/DataContext';
+import { useContext } from "react";
 
 export function Header({setSearch}) {
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
+  const { data, setData } = useContext(DataContext);
   const navigate = useNavigate();
 
   function handleSignOut() {
@@ -29,10 +31,12 @@ export function Header({setSearch}) {
         placeholder="Busque por pratos ou ingredientes"
         icon={FiSearch}
         margin-left={100}
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e) => {
+          setData({...data, search: e.target.value})
+        }}
       />
       <Button title="Pedidos (0)" icon={PiReceipt} />
-      <Logout onClick={handleSignOut} >
+      <Logout onClick={handleSignOut} to="/" >
         <GoSignOut/>
       </Logout>
     </Container>

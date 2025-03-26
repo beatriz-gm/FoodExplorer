@@ -51,7 +51,7 @@ export function Add() {
       return alert("Você não adicionou todos os ingredientes digitados, clique para adicionar antes de prosseguir!")
     }
 
-    await api.post("/itens", {
+    await api.post("/items", {
       title,
       category,
       ingredients,
