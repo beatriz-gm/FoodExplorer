@@ -5,7 +5,7 @@ import { Input } from "../../components/input";
 import { FiChevronLeft, FiShare, FiChevronDown } from "react-icons/fi";
 import { Button } from "../../components/Button";
 import { NewTag } from "../../components/NewTag";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { api } from "../../services/api";
@@ -13,13 +13,20 @@ import { api } from "../../services/api";
 export function Add() {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-
   const [ingredients, setIngredients] = useState([]);
   const [newIng, setNewIng] = useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    api.get("/categories")
+      .then(response => setCategories(response.data))
+      .catch(error => console.error("Erro ao buscar categorias:", error));
+  }, []);
 
   function handleAddIng() {
     setIngredients(prevState => [...prevState, newIng]);
@@ -28,6 +35,20 @@ export function Add() {
 
   function handleRemoveIng(deleted) {
     setIngs(prevState => prevState.filter(ingredient => ingredient !== deleted));
+  }
+
+  function handlePriceChange(e) {
+    let value = e.target.value.replace(/\D/g, "");
+    value = (Number(value) / 100).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL"
+    });
+    setPrice(value);
+  }
+
+  function handleCategorySelect(name) {
+    setCategory(name);
+    setShowDropdown(false);
   }
 
   async function handleNewItem() {
@@ -96,9 +117,18 @@ return (
             id="category"
             placeholder="Refeição"
             type="text"
+            value={category}
             onChange={e => setCategory(e.target.value)}
+            onFocus={() => setShowDropdown(true)}
           />
-          <FiChevronDown size={24}/>
+          <FiChevronDown size={24} onClick={() => setShowDropdown(prev => !prev)} />
+          {showDropdown && (
+            <ul className="dropdown">
+              {categories.map(cat => (
+                <li key={cat.id} onClick={() => handleCategorySelect(cat.name)}>{cat.name}</li>
+              ))}
+            </ul>
+          )}
 
         </div>
       </div>
@@ -131,7 +161,8 @@ return (
             id="price"
             placeholder="R$00,00"
             type="text"
-            onChange={e => setPrice(e.target.value)}
+            value={price}
+            onChange={handlePriceChange}
             />
         </div>
       </div>

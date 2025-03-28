@@ -6,58 +6,31 @@ import { api } from '../../services/api';
 import Macarons from '../../assets/macaronsHome.svg';
 import { Footer } from '../../components/Footer';
 import { useState, useEffect } from 'react';
-// import { useData } from '../../components/context/DataContext';
 
 export function Home() {
   const [items, setItems] = useState([]);
-  const [search, setSearch] = useState("");
-  // const {data} = useData();
+  const [categories, setCategories] = useState([]);
 
-  // useEffect(() => {
-  //   const title = data.search
-  //   const params = new URLSearchParams({title}).toString();
-  //   const url = `https://localhost:3322/items?${params}`;
-
-  //   async function fetchItems() {
-  //     const data = await fetch(url,
-  //       {
-  //         method: 'GET',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           'Authorization': `Bearer ${localStorage.getItem('@foodexplorer:token')}`
-          
-  //         }
-  //       });
-  //       const items = await data.json();
-  //       setItems(items);
-  //   }
-  //   fetchItems();
-  // }, [data]);
-
-  // useEffect(() => {
-  //   const title = data
-  //   const params = new URLSearchParams({title}).toString();
-  //   const url = `https://localhost:3322/items?${params}`;
-
-  //   async function showItems() {
-  //     const data = await fetch(url,
-  //       {
-  //         method: 'GET',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           'Authorization': `Bearer ${localStorage.getItem('@foodexplorer:token')}`
-  //         }
-  //       });
-  //       const items = await data.json();
-  //       setItems(items);   
-  //   }
-  //   showItems();
-  // }, []);
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const response = await api.get('/categories', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('@foodexplorer:token')}`
+          }
+        });
+        setCategories(response.data);  
+      } catch (error) {
+        console.error("Erro ao buscar categorias:", error);
+      }
+    }
+    fetchCategories();
+  }, []);
 
   useEffect(() => {
     async function fetchItems() {
       try {
-        const response = await api.get(`/items?title=${search}`, {
+        const response = await api.get(`/items`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('@foodexplorer:token')}`
           }
@@ -69,7 +42,7 @@ export function Home() {
     }
     fetchItems();
   }, []);
-  
+
   return(
     <Container>
       <Header />
@@ -82,24 +55,27 @@ export function Home() {
         </div>
       </Banner>
 
-      <Section >
-        <h1>teste</h1>
-        <Next/>
-        <div className="items">
-          {
-            items.map(item => (
-              <Item
-              key={String(item.id)}
-              data={item}
-              // id={item.id}
-              // title={item.title}
-              // description={item.description}
-              />
-            ))
-          }
-        </div>
-      </Section>
-        
+      {categories.map(category => {
+          const itemsInCategory = items.filter(item => item.category_id === category.id);
+
+          return (
+            <Section key={category.id}>
+              <h1>{category.name}</h1>
+              <div className="item-list">
+                {itemsInCategory.length > 0 ? (
+                  itemsInCategory.map(item => (
+                    <Item
+                      key={String(item.id)}
+                      data={item}
+                    />
+                  ))
+                ) : (
+                  <p>Nenhum item disponível nesta categoria</p>
+                )}
+              </div>
+            </Section>
+          );
+        })}
       </body>
 
       <Footer/>

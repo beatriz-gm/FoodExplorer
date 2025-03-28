@@ -10,7 +10,7 @@ export const Container = styled.div`
   align-items: center;
   padding: 24px 123px;
 
-  position: static;
+  position: fixed;
   bottom: 0;
   left: 0;
 

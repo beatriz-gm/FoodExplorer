@@ -4,7 +4,7 @@ import { api } from "../../services/api";
 
 import { BsFillHexagonFill } from "react-icons/bs";
 import { Button } from '../../components/Button';
-import { Input } from '../../components/Input';
+import { Input } from '../../components/Input/index.jsx';
 import { Container, Form } from "./styles";
 
 export function SignUp(){
@@ -25,6 +25,7 @@ export function SignUp(){
       navigate("/");
     })
     .catch(error => {
+      console.error(error);
       if (error.response) {
         alert(error.response.data.message);
       } else {

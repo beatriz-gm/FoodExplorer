@@ -126,6 +126,10 @@ color: ${({theme}) => theme.COLORS.LIGHT300};
         cursor: pointer;
        }
       }
+      > .dropdown {
+        background-color: transparent;
+        color: ${({theme}) => theme.COLORS.LIGHT100};
+      }
     }
   }
 
